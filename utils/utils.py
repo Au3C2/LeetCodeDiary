@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2021-03-25 20:31:55
 LastEditors: Au3C2
-LastEditTime: 2021-03-25 20:36:26
+LastEditTime: 2021-04-26 10:14:00
 '''
 import collections    
 import heapq
@@ -93,5 +93,4 @@ def buildList(l: list) -> ListNode:
             node = ListNode(n)
             last_node.next = node
             last_node = node
-    return head
-        
+    return head       
