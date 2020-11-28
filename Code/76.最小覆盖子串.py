@@ -1,0 +1,41 @@
+'''
+Description: 
+Autor: Au3C2
+Date: 2020-11-24 17:25:14
+LastEditors: Au3C2
+LastEditTime: 2020-11-25 15:24:05
+'''
+#
+# @lc app=leetcode.cn id=76 lang=python3
+#
+# [76] 最小覆盖子串
+#
+
+# @lc code=start
+class Solution:
+    
+    def minWindow(self, s: str, t: str) -> str:
+        
+        need = collections.Counter(t)
+        needCnt = len(t)
+        i = 0
+        res = (0, len(s)+1)
+        for j,c in enumerate(s):
+            if need[c] > 0:
+                needCnt -= 1    # 不在t中的字符默认是0，所以大于零的一定是t里的字符
+            need[c] -= 1        # 当c出现次数超过所需次数时，need[c]<0，所以needcnt不会小于0
+            if needCnt == 0:    # 步骤一：滑动窗口包含了所有T元素
+                while True:     # 步骤二：增加i，排除多余元素
+                    c = s[i] 
+                    if need[c] == 0:
+                        break
+                    need[c] += 1
+                    i += 1
+                if j-i < res[1]-res[0]:   #记录结果
+                    res =(i,j)
+                need[s[i]] += 1  #步骤三：i增加一个位置，寻找新的满足条件滑动窗口
+                needCnt += 1
+                i += 1
+        return '' if res[1] > len(s) else s[res[0]:res[1]+1] 
+# @lc code=end
+

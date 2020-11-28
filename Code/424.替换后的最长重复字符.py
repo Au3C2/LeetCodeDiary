@@ -1,0 +1,47 @@
+'''
+Description: 
+Autor: Au3C2
+Date: 2020-11-26 11:18:13
+LastEditors: Au3C2
+LastEditTime: 2020-11-27 17:21:56
+'''
+#
+# @lc app=leetcode.cn id=424 lang=python3
+#
+# [424] 替换后的最长重复字符
+#
+
+# @lc code=start
+class Solution:
+    import collections
+    def characterReplacement(self, s: str, k: int) -> int:
+        n = len(s)
+        if k >= n :
+            return k
+        if n == 0:
+            return 0
+        
+        count = collections.Counter()
+        lp = 0 #左指针
+        # lookup = []
+        max_len = k + 1
+        cur_len = 0
+        for rp in range(n): #右指针
+            cur_len += 1
+            count[s[rp]] += 1
+            # lookup = s[lp:rp+1]
+            max_n = max(list(count.values()))
+            if max_n == n:
+                return n
+            # if cur_len > isSatisfied(max_n,k,cur_len,max_len):
+            if cur_len > max_len and max_n + k >= cur_len:
+                max_len = cur_len
+                
+            if max_n + k < cur_len:
+                count[s[lp]] -= 1
+                lp += 1
+                cur_len -= 1
+
+        return max_len
+# @lc code=end
+
