@@ -1,0 +1,47 @@
+'''
+Description: 
+Autor: Au3C2
+Date: 2020-12-01 17:16:46
+LastEditors: Au3C2
+LastEditTime: 2020-12-01 17:30:12
+'''
+class Solution:
+    def maxTurbulenceSize(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n == 0:
+            return 0
+        if len(set(arr)) == 1:
+            return 1
+        if n == 2:
+            return 2
+
+        change = []
+        for i in range(n-2):
+            if arr[i] < arr[i+1] and arr[i+1] > arr[i+2] or \
+                arr[i] > arr[i+1] and arr[i+1] < arr[i+2]:
+                change.append(-1)
+            elif arr[i] == arr[i+1] or arr[i+1] == arr[i+2]:
+                change.append(0)
+            else:
+                change.append(1)
+
+        i = 0
+        max_len = 0
+        while i < n-2 :
+            if change[i] == -1:
+                j = i + 1
+                for j in range(i+1,n-2):
+                    if change[j] != -1:
+                        j -= 1
+                        break
+                if j - i + 1 > max_len:
+                    max_len = j - i + 1
+                i = j
+            i += 1
+        return max_len + 2
+
+# 真是坑爹，特殊情况一大堆，提交错误有8次，有以下几种情况
+# 元素全部相同， 输出1
+# 数组长度为1时，输出1
+# 数组长度为2且二者不等时， 输出2 
+# 上面几种情况可以总结为：列表里只有一种元素。这种写法相较分开写if的方法，时间会少几十毫秒，但是内存多了3M

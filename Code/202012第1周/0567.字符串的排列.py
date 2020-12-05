@@ -1,0 +1,44 @@
+'''
+Description: 
+Autor: Au3C2
+Date: 2020-11-30 16:53:02
+LastEditors: Au3C2
+LastEditTime: 2020-11-30 17:10:43
+'''
+#
+# @lc app=leetcode.cn id=567 lang=python3
+#
+# [567] 字符串的排列
+#
+
+# @lc code=start
+class Solution:
+    import collections    
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        count_s1 = collections.Counter(s1)
+        l_s1, l_s2 = len(s1), len(s2)
+        if l_s1 > l_s2 :
+            return False
+        count_t = collections.Counter(s2[0:l_s1])
+        # end = (l_s2-l_s1) if l_s2-l_s1 > 1 else 2
+        for i in range(l_s2-l_s1+1):
+            flag = True
+            for c, n in count_s1.items():
+                if count_t[c] == n:
+                    continue
+                else:
+                    flag = False
+                    break
+            if flag:
+                return True
+            
+            # lookup = s2[i:i+l_s1] 
+            if i == l_s2-l_s1:
+                break
+            count_t[s2[i]] -= 1
+            count_t[s2[i+l_s1]] += 1
+            lookup = s2[i:i+l_s1] 
+        return False
+        
+# @lc code=end
+

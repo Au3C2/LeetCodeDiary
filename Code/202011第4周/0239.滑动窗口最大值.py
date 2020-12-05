@@ -3,7 +3,7 @@ Description: solution for problem 239
 Autor: Au3C2
 Date: 2020-11-25 15:35:51
 LastEditors: Au3C2
-LastEditTime: 2020-11-25 17:16:40
+LastEditTime: 2020-12-01 15:33:34
 '''
 #
 # @lc app=leetcode.cn id=239 lang=python3
@@ -13,8 +13,8 @@ LastEditTime: 2020-11-25 17:16:40
 
 # @lc code=start
 # class Solution:
-from collections import deque
 class Solution:
+    from collections import deque
     def maxSlidingWindow(self, nums: 'List[int]', k: 'int') -> 'List[int]':
         # base cases
         n = len(nums)
