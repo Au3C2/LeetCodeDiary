@@ -12,25 +12,20 @@ import functools
 # from numba import njit
 import numpy as np
 
-def characterReplacement(stones) -> int:
-    stones.sort()
-    n = len(stones)
-    #最大值
-    maxs = stones[n-1]-stones[0]+1-n- \
-        min(stones[n-1]-stones[n-2]-1,stones[1]-stones[0]-1)
-    #最小值
-    mins = maxs
-    tmp = 0
-    for i in range(n):
-        while stones[i]-stones[tmp]+1>n:
-            tmp += 1
-        cost = n-(i-tmp+1)
-        if cost == 1 and \
-            stones[i]-stones[tmp]+1 == n-1: # 左端致密情况
-            mins = min(mins,2)
-        else:
-            mins = min(mins,cost) # 一般情况
-    return [mins,maxs]
+def characterReplacement(numRows) -> int:
+    if numRows == 0:
+        return []
+    output = [[1],[1,1]]
+    if numRows == 1:
+        return [[1]]
+    for n in range(2,numRows): # 第n行,同时也是该行长度
+        row = [1] # 这一行初始化
+        for i in range(1,(n+1)//2+1): #因为是对称的仅需跑出一半的值
+            row.append(output[n-1][i-1]+output[n-1][i])
+        temp = row[:-1] if (n+1)%2==1 else row[:-2]
+        row.extend(temp[::-1])
+        output.append(row)
+    return output
     
-something = characterReplacement([6,5,4,3,10])
+something = characterReplacement(1)
 print(something)
