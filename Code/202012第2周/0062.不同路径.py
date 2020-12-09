@@ -1,0 +1,17 @@
+'''
+Description: 
+Autor: Au3C2
+Date: 2020-12-09 09:14:19
+LastEditors: Au3C2
+LastEditTime: 2020-12-09 09:15:59
+'''
+
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        return comb(m + n - 2, n - 1)
+
+# 从左上角到右下角的过程中，我们需要移动 m+n-2m+n−2 次，其中有 m-1m−1 次向下移动，n-1n−1 次向右移动。
+# 因此路径的总数，就等于从 m+n-2m+n−2 次移动中选择 m-1m−1 次向下移动的方案数，即组合数：
+​# tag: 数组，动态规划。
+# 这题用排列组合求解即可，主要是把问题抽象一下
+# https://leetcode-cn.com/problems/unique-paths/solution/bu-tong-lu-jing-by-leetcode-solution-hzjf/
