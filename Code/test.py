@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2020-11-24 12:46:57
 LastEditors: Au3C2
-LastEditTime: 2020-12-04 14:52:27
+LastEditTime: 2020-12-10 09:16:26
 '''
 import collections    
 import heapq
@@ -12,20 +12,26 @@ import functools
 # from numba import njit
 import numpy as np
 
-def characterReplacement(numRows) -> int:
-    if numRows == 0:
-        return []
-    output = [[1],[1,1]]
-    if numRows == 1:
-        return [[1]]
-    for n in range(2,numRows): # 第n行,同时也是该行长度
-        row = [1] # 这一行初始化
-        for i in range(1,(n+1)//2+1): #因为是对称的仅需跑出一半的值
-            row.append(output[n-1][i-1]+output[n-1][i])
-        temp = row[:-1] if (n+1)%2==1 else row[:-2]
-        row.extend(temp[::-1])
-        output.append(row)
-    return output
+def characterReplacement(bills) -> bool:
+    change5, change10 = 0,0
+    for num in bills:
+        if num ==5:
+            change5 += 1
+        if num == 10:
+            if change5 > 0:
+                change5 -= 1
+                change10 += 1
+            else:
+                return False
+        if num == 20:
+            if (change5>0 and change10>0):
+                change10 -= 1
+                change5 -= 1
+            elif change5 >= 3:
+                change5 -= 3
+            else:
+                return False
+    return True
     
-something = characterReplacement(1)
+something = characterReplacement([5,5,10,10,20])
 print(something)
