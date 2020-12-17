@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2020-12-15 12:49:52
 LastEditors: Au3C2
-LastEditTime: 2020-12-15 14:59:25
+LastEditTime: 2020-12-16 15:55:48
 '''
 class Solution:
     def longestSubarray(self, nums: List[int], limit: int) -> int:
@@ -23,5 +23,5 @@ class Solution:
                 cur_len -= 1
             max_len = max(max_len,cur_len)
         return max_len
-# 滑窗，这个程序性能比较差
+# 滑窗，这个程序性能比较差,其实我维护有序表的目的是获取队列最大最小值，那么只需要维护一个最大堆，一个最小堆即可
 # https://leetcode-cn.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/
