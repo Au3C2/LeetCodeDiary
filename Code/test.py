@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2020-11-24 12:46:57
 LastEditors: Au3C2
-LastEditTime: 2020-12-25 17:32:38
+LastEditTime: 2020-12-31 10:14:54
 '''
 import collections    
 import heapq
@@ -13,24 +13,27 @@ import functools
 import numpy as np
 import bisect
 
-def function(s,t):     
-    s2t = {}
-    t2s = {}
-    for sc, tc in zip(s,t):
-        if sc in s2t and s2t[sc] != tc:
+def function(flowerbed, n):
+    if n == 0:
+        return True
+    if len(flowerbed) == 1:
+        if flowerbed[0] == 1:
             return False
         else:
-            s2t[sc] = tc
-        if tc in t2s and t2s[tc] != sc:
-            return False          
-        else:
-            t2s[tc] = sc
-    for sc,tc in s2t.items():
-        if t2s[tc] != sc:
-            return False
-    for tc,sc in t2s.items():
-        if s2t[sc] != tc:
-            return False
-    return True
-something = function("egg","add")
+            return True
+    
+    if flowerbed[0]+flowerbed[1] == 0:
+        flowerbed[0] = 1
+        n -= 1
+    if flowerbed[-1]+flowerbed[-2] == 0:
+        flowerbed[-1] = 1
+        n -= 1
+        
+    for i in range(1,len(flowerbed)-2):
+        if flowerbed[i-1]+flowerbed[i]+flowerbed[i+1]==0:
+            flowerbed[i] = 1
+            n -= 1
+
+    return n <= 0
+something = function(flowerbed = [0,0,1,0,0], n = 1)
 print(something)
