@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2020-12-31 10:42:34
 LastEditors: Au3C2
-LastEditTime: 2020-12-31 10:43:11
+LastEditTime: 2021-01-04 11:11:45
 '''
 class Solution:
     def winnerSquareGame(self, n: int) -> bool:

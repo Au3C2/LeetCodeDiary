@@ -1,3 +1,10 @@
+'''
+Description: 
+Autor: Au3C2
+Date: 2020-12-29 21:01:44
+LastEditors: Au3C2
+LastEditTime: 2021-01-04 11:11:54
+'''
 class Solution:
     def stoneGameVII(self, stones: List[int]) -> int:
         length = len(stones)
@@ -10,4 +17,4 @@ class Solution:
         return dp[0][length - 1]   
     
 # 动态规划，中等。好难啊
-# https://leetcode-cn.com/problems/stone-game-vii/comments/ 
+# https://leetcode-cn.com/problems/stone-game-vii/
