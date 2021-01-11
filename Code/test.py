@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2020-11-24 12:46:57
 LastEditors: Au3C2
-LastEditTime: 2021-01-04 10:53:27
+LastEditTime: 2021-01-10 11:18:07
 '''
 import collections    
 import heapq
@@ -13,16 +13,26 @@ import functools
 import numpy as np
 import bisect
 
-def function(n):
-    f = [0,1,1]
-    if n <= 2:
-        return f[n]
-    i = 3
-    while i<=n:
-        f[0]=f[1]
-        f[1]=f[2]
-        f[2]=f[0]+f[1]
-        i+=1
-    return f[-1]
-something = function(4)
+def function(nums):
+    if not nums:
+        return []
+    n = len(nums)
+    if n ==1 :
+        return [str(nums[0])]
+    ans = []
+    i = 0
+    while i<n:
+        j = i+1  
+
+        while j<n and nums[j]-nums[j-1] == 1:
+            j += 1
+            
+        if j-1 == i:
+            ans.append('%d'%(nums[i]))
+        else:
+            ans.append('%d->%d'%(nums[i],nums[j-1]))
+        i = j
+    return ans        
+   
+something = function(nums = [0,1,2,4,5,7])
 print(something)
