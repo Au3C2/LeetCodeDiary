@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2021-01-18 10:41:50
 LastEditors: Au3C2
-LastEditTime: 2021-01-18 10:42:24
+LastEditTime: 2021-01-18 11:14:20
 '''
 class UnionFind:
     def __init__(self, n):
@@ -45,5 +45,5 @@ class Solution:
             ans.append([emailToName[emails[0]]] + sorted(emails))
         return ans
 
-# 并查集，中等，每日一题
+# 并查集，中等，每日一题，不打算做
 # https://leetcode-cn.com/problems/accounts-merge/
