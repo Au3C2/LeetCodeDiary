@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2020-11-24 12:46:57
 LastEditors: Au3C2
-LastEditTime: 2021-01-17 19:29:26
+LastEditTime: 2021-01-19 16:56:08
 '''
 import collections    
 import heapq
@@ -23,7 +23,7 @@ class TreeNode:
 
 def buildTree(tree:list):
     n = len(tree)
-    level = math.ceil(math.log(n,2))
+    level = math.ceil(math.log(n+1,2))
     root = TreeNode(tree[0])
     lastLevel = [root]
     m = 1
@@ -43,16 +43,23 @@ def buildTree(tree:list):
         lastLevel = thisLevel
     return root
 
-def function(coordinates):
-    n = len(coordinates)
-    c = coordinates
-    for i in range(2,n):
-        if (c[i][0]-c[0][0])*(c[1][1]-c[0][1]) != \
-            (c[i][1]-c[0][1])*(c[1][0]-c[0][0]):
-            return False
-    return True
-
-# root = buildTree([2,1,3,None,4,None,7])                          
-
-something = function([[1,1],[2,0],[1,-1]])
+def function(n1,n2):
+    
+    if n1 and n2:
+        n1.val += n2.val
+        n1.left = function(n1.left,n2.left)
+        n1.right = function(n1.right,n2.right)
+    elif n1:
+        pass
+    elif n2:
+        return n2
+    else:
+        return None
+    
+    return n1
+    
+null = None
+t1 = buildTree([1,3,2,5])  
+t2 = buildTree([2,1,3,null,4,null,7])                   
+something = function(t1,t2)
 print(something)
