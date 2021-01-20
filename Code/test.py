@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2020-11-24 12:46:57
 LastEditors: Au3C2
-LastEditTime: 2021-01-19 16:56:08
+LastEditTime: 2021-01-20 10:57:00
 '''
 import collections    
 import heapq
@@ -43,23 +43,28 @@ def buildTree(tree:list):
         lastLevel = thisLevel
     return root
 
-def function(n1,n2):
-    
-    if n1 and n2:
-        n1.val += n2.val
-        n1.left = function(n1.left,n2.left)
-        n1.right = function(n1.right,n2.right)
-    elif n1:
-        pass
-    elif n2:
-        return n2
-    else:
-        return None
-    
-    return n1
+def function(root,low,high):
+    if not root:
+        return 0
+    if low < root.val < high:
+        leftSum = function(root.left,low,high)
+        rightSum = function(root.right,low,high)
+        return root.val + leftSum + rightSum
+    elif root.val <= low:
+        rightSum = function(root.right,low,high)
+        if root.val == low:
+            return rightSum + root.val  
+        else:
+            return rightSum
+    elif root.val >= high:
+        leftSum = function(root.left,low,high)
+        if root.val == high:
+            return leftSum + root.val  
+        else:
+            return leftSum   
     
 null = None
-t1 = buildTree([1,3,2,5])  
-t2 = buildTree([2,1,3,null,4,null,7])                   
-something = function(t1,t2)
+root = buildTree([10,5,15,3,7,13,18,1,null,6])  
+# t2 = buildTree([2,1,3,null,4,null,7])                   
+something = function(root,low = 6, high = 10)
 print(something)
