@@ -1,0 +1,28 @@
+'''
+Description: 
+Autor: Au3C2
+Date: 2021-01-21 19:21:18
+LastEditors: Au3C2
+LastEditTime: 2021-01-21 19:21:47
+'''
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def convertBiNode(self, root):
+        self.pre = self.ans = TreeNode(-1)
+        def dfs(root):
+            if not root: return
+            dfs(root.left)
+            root.left = None
+            self.pre.right = root
+            self.pre = root
+            dfs(root.right)
+        dfs(root)
+        return self.ans.right
+# 树，简单，中序遍历记录节点即可
+# https://leetcode-cn.com/problems/binode-lcci/

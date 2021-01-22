@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2020-11-24 12:46:57
 LastEditors: Au3C2
-LastEditTime: 2021-01-20 10:57:00
+LastEditTime: 2021-01-21 17:25:17
 '''
 import collections    
 import heapq
@@ -25,14 +25,14 @@ def buildTree(tree:list):
     n = len(tree)
     level = math.ceil(math.log(n+1,2))
     root = TreeNode(tree[0])
-    lastLevel = [root]
+    lastLevel = list([root])
     m = 1
     for i in range(1,level):
-        thisLevel = []
+        thisLevel = list()
         for j in range(2**i):
             if m == n:
                 return root
-            if tree[m]:
+            if tree[m] != None:
                 node = TreeNode(tree[m])
                 thisLevel.append(node)
                 if j % 2 == 0:
@@ -43,28 +43,26 @@ def buildTree(tree:list):
         lastLevel = thisLevel
     return root
 
-def function(root,low,high):
-    if not root:
-        return 0
-    if low < root.val < high:
-        leftSum = function(root.left,low,high)
-        rightSum = function(root.right,low,high)
-        return root.val + leftSum + rightSum
-    elif root.val <= low:
-        rightSum = function(root.right,low,high)
-        if root.val == low:
-            return rightSum + root.val  
+
+def function(root):
+    def recursion(root):
+        if not root:
+            return
+        recursion(root.left)
+        if not node:
+            node = root
+            head = node
         else:
-            return rightSum
-    elif root.val >= high:
-        leftSum = function(root.left,low,high)
-        if root.val == high:
-            return leftSum + root.val  
-        else:
-            return leftSum   
-    
+            node.right = root
+            node.left = None
+            node = node.right
+        recursion(root.right)
+    head = node = None
+    recursion(root)
+    return head
+        
 null = None
-root = buildTree([10,5,15,3,7,13,18,1,null,6])  
-# t2 = buildTree([2,1,3,null,4,null,7])                   
-something = function(root,low = 6, high = 10)
+root = buildTree([4,2,5,1,3,null,6,0])  
+# t2 = buildTree([2,1,3,null,4,null,7])            
+something = function(root=root)
 print(something)
