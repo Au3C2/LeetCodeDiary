@@ -1,0 +1,25 @@
+'''
+Description: 
+Autor: Au3C2
+Date: 2021-01-28 10:25:31
+LastEditors: Au3C2
+LastEditTime: 2021-01-28 10:25:57
+'''
+class Solution:
+    def pivotIndex(self, nums: List[int]) -> int:
+        n = len(nums)
+        if not nums:
+            return -1
+        leftSum = 0
+        rightSum = sum(nums)-nums[0]
+        for i in range(n-1):
+            if leftSum == rightSum:
+                return i
+            leftSum += nums[i]
+            rightSum -= nums[i+1]
+        if leftSum == rightSum:
+            return i + 1
+        return -1
+
+# 数组，简单，每日一题。下标要仔细
+# https://leetcode-cn.com/problems/find-pivot-index/

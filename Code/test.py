@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2020-11-24 12:46:57
 LastEditors: Au3C2
-LastEditTime: 2021-01-21 17:25:17
+LastEditTime: 2021-01-28 10:23:41
 '''
 import collections    
 import heapq
@@ -13,7 +13,7 @@ import functools
 import numpy as np
 import bisect
 import math
-
+from scipy.special import comb, perm
 # Definition for a binary tree node.
 class TreeNode:
     def __init__(self, x):
@@ -44,25 +44,24 @@ def buildTree(tree:list):
     return root
 
 
-def function(root):
-    def recursion(root):
-        if not root:
-            return
-        recursion(root.left)
-        if not node:
-            node = root
-            head = node
-        else:
-            node.right = root
-            node.left = None
-            node = node.right
-        recursion(root.right)
-    head = node = None
-    recursion(root)
-    return head
+def function(nums):
+    n = len(nums)
+    if not nums:
+        return -1
+    leftSum = 0
+    rightSum = sum(nums)-nums[0]
+    for i in range(n-1):
+        if leftSum == rightSum:
+            return i
+        leftSum += nums[i]
+        rightSum -= nums[i+1]
+    if leftSum == rightSum:
+        return i + 1
+    return -1
+
         
-null = None
-root = buildTree([4,2,5,1,3,null,6,0])  
+# null = None
+# root = buildTree([4,2,5,1,3,null,6,0])  
 # t2 = buildTree([2,1,3,null,4,null,7])            
-something = function(root=root)
+something = function([-1,-1,0,1,1,0])
 print(something)
