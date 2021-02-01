@@ -44,24 +44,22 @@ def buildTree(tree:list):
     return root
 
 
-def function(nums):
-    n = len(nums)
-    if not nums:
-        return -1
-    leftSum = 0
-    rightSum = sum(nums)-nums[0]
-    for i in range(n-1):
-        if leftSum == rightSum:
-            return i
-        leftSum += nums[i]
-        rightSum -= nums[i+1]
-    if leftSum == rightSum:
-        return i + 1
-    return -1
+def function(A,B):
+    t = (sum(B) - sum(A))/2
+    # suma - a + b = sumb - b + a
+    # (sumb-suma+2a)/2 = b
+    # (suma-sumb+2b)/2 = a
+    ans = {}
+    for a in A:
+        ans[t+a] = a
+    for b in B:
+        a = ans.get(b)
+        if a:
+            return [a,b]
 
         
 # null = None
 # root = buildTree([4,2,5,1,3,null,6,0])  
 # t2 = buildTree([2,1,3,null,4,null,7])            
-something = function([-1,-1,0,1,1,0])
+something = function(A = [1,1], B = [2,2])
 print(something)
