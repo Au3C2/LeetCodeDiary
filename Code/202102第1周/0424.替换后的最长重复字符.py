@@ -1,0 +1,40 @@
+'''
+Description: 
+Autor: Au3C2
+Date: 2021-02-04 11:15:35
+LastEditors: Au3C2
+LastEditTime: 2021-02-04 11:16:14
+'''
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        n = len(s)
+        if n == 0:
+            return 0
+        if k >= n :
+            return k
+               
+        count = collections.Counter()
+        lp = 0 #左指针
+        # lookup = []
+        max_len = k + 1
+        cur_len = 0
+        for rp in range(n): #右指针
+            cur_len += 1
+            count[s[rp]] += 1
+            # lookup = s[lp:rp+1]
+            max_n = max(list(count.values()))
+            # if max_n == n:
+            #     return n
+            # if cur_len > isSatisfied(max_n,k,cur_len,max_len):
+            if cur_len > max_len and max_n + k >= cur_len:
+                max_len = cur_len
+                
+            if max_n + k < cur_len:
+                count[s[lp]] -= 1
+                lp += 1
+                cur_len -= 1
+
+        return max_len
+    
+# 滑动窗口，中等，每日一题。之前做过的
+# https://leetcode-cn.com/problems/longest-repeating-character-replacement/
