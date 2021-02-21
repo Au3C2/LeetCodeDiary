@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2020-11-24 12:46:57
 LastEditors: Au3C2
-LastEditTime: 2021-02-16 11:51:14
+LastEditTime: 2021-02-21 11:21:56
 '''
 import collections    
 import heapq
@@ -44,14 +44,11 @@ def buildTree(tree:list):
     return root
 
 
-def function(nums):
-    nums.sort()
-    return sum(nums[::2])
-
-
-        
+def function(nums,limit):
+    
+           
 # null = None
 # root = buildTree([4,2,5,1,3,null,6,0])  
 # t2 = buildTree([2,1,3,null,4,null,7])            
-something = function([6,2,6,5,1,2])
+something = function(nums = [10,1,2,4,7,2], limit = 5)
 print(something)

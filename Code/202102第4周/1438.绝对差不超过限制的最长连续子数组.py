@@ -1,0 +1,42 @@
+'''
+Description: 
+Autor: Au3C2
+Date: 2021-02-21 12:54:35
+LastEditors: Au3C2
+LastEditTime: 2021-02-21 12:54:55
+'''
+class Solution:
+    def longestSubarray(self, nums: List[int], limit: int) -> int:
+        # 栈底维护了最值，栈顶维护了窗口终点
+
+        ascend, descend = [], [] # 维护一个最小值栈，一个最大值栈
+        a, d = 0, 0 # 队首下标
+        t = 0 # 窗口起始点
+        res = 0
+
+        for i in range(len(nums)): # i为窗口终止点，利用循环滑动终止点
+            temp = nums[i] # 保存终止点对应的值
+
+            # 更新最小值
+            while len(ascend) > a and temp < ascend[-1][0]: # 与栈顶值对比
+                ascend.pop() # 弹出
+            ascend.append((temp, i)) # 记录终点值与下标
+            
+            # 更新最大值
+            while len(descend) > d and temp > descend[-1][0]: # 与栈顶值对比
+                descend.pop() # 弹出
+            descend.append((temp, i)) # 记录终点值与下标
+
+            while descend[d][0] - ascend[a][0] > limit: # 最值之差大于limit出发滑动条件
+                t += 1 # 起始点滑动
+                if ascend[a][1] < t: # 如果窗口起点在最小值索引右侧，需要舍弃此时的最小值
+                    a += 1
+                if descend[d][1] < t: # 如果窗口起点在最大值索引右侧，需要舍弃此时的最大值
+                    d += 1
+            
+            res = max(res, i-t+1) # 更新最大长度
+
+        return res
+    
+# 数组，中等，每日一题
+# https://leetcode-cn.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/
