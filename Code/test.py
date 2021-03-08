@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2020-11-24 12:46:57
 LastEditors: Au3C2
-LastEditTime: 2021-02-28 14:08:24
+LastEditTime: 2021-03-06 11:27:48
 '''
 import collections    
 import heapq
@@ -44,27 +44,23 @@ def buildTree(tree:list):
     return root
 
 
-def function(A):
-    if len(A) < 3:
-        return True
-    
-    lastDiff = None
-    
-    for i in range(1,len(A)):
-        thisDiff = A[i] - A[i-1]
-        if thisDiff == 0:
-            continue
-        if thisDiff > 0 :
-            if lastDiff and lastDiff < 0:
-                return False
-        if thisDiff < 0 :
-            if lastDiff and lastDiff > 0:
-                return False
-        lastDiff = thisDiff
-    return True
+def function(nums):
+    ans = list()
+    l_nums = len(nums)
+    for i,n in enumerate(nums):
+        j = (i+1) % l_nums
+        while nums[j]<=n:
+            j = (j+1) % l_nums
+            if j == i:
+                break
+        if j == i:
+            ans.append(-1)
+        else:
+            ans.append(nums[j])
+    return ans
            
 # null = None
 # root = buildTree([4,2,5,1,3,null,6,0])  
 # t2 = buildTree([2,1,3,null,4,null,7])            
-something = function([1,1,0])
+something = function([1,2,1])
 print(something)
