@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2020-11-24 12:46:57
 LastEditors: Au3C2
-LastEditTime: 2021-03-11 15:01:18
+LastEditTime: 2021-03-11 18:33:52
 '''
 import collections    
 import heapq
@@ -45,6 +45,7 @@ def buildTree(tree:list):
 
 
 def function(s):
+    # test
     s = s.replace(' ','')
     stack = list()
     lastOpra = False
