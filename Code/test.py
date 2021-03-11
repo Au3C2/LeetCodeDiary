@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2020-11-24 12:46:57
 LastEditors: Au3C2
-LastEditTime: 2021-03-11 12:20:46
+LastEditTime: 2021-03-11 15:01:18
 '''
 import collections    
 import heapq
@@ -46,39 +46,34 @@ def buildTree(tree:list):
 
 def function(s):
     s = s.replace(' ','')
-    stack = []
-    lastFlag = False
+    stack = list()
+    lastOpra = False
     n = len(s)
     i = 0    
     while i < n :
 
         if s[i].isdigit():
-            t = list(s[i])
+            num2 = int(s[i])
             while i<n-1 and s[i+1].isdigit():
-                t.append(s[i+1])
+                num2 = num2*10 + int(s[i+1])
                 i += 1
             i += 1
-            stack.append(''.join(t))
-            
-            if lastFlag:
-                num2, operator, num1 = int(stack.pop()), stack.pop(), int(stack.pop())
-                t = num1 * num2 if operator == '*' else math.floor(num1 / num2)
-                stack.append(str(t))
-                lastFlag = False
-
+            if lastOpra =='*' or lastOpra == '/':
+                num1 = stack.pop()
+                t = num1 * num2 if lastOpra == '*' else int(num1 / num2)
+                stack.append(t)
+                lastOpra = False
+            elif lastOpra=='-':
+                stack.append(-1*num2)
+            else:
+                stack.append(num2)
         else:
-            stack.append(s[i])
-            if s[i]=='*' or s[i] == '/':
-                lastFlag = s[i]
-            i += 1
-        
-        # if s[i]=='*' or s[i] == '/':
-        #     lastFlag = s[i]
-            
-    return eval(''.join(stack))
+            lastOpra = s[i]
+            i += 1           
+    return sum(stack)
            
 # null = None
 # root = buildTree([4,2,5,1,3,null,6,0])  
 # t2 = buildTree([2,1,3,null,4,null,7])            
-something = function("3+2*2")
+something = function("14-3/2")
 print(something)
