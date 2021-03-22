@@ -1,0 +1,29 @@
+'''
+Description: 
+Autor: Au3C2
+Date: 2021-03-19 10:57:36
+LastEditors: Au3C2
+LastEditTime: 2021-03-19 10:57:56
+'''
+class Solution:
+    def levelOrder(self, root: TreeNode) -> List[List[int]]:
+        self.level_dict = dict()
+        self.recursion(root,0)
+        res = list(self.level_dict.values())
+        return res
+
+    def recursion(self,root,level):
+        
+        if not root:
+            return
+        if level in self.level_dict:
+            self.level_dict[level].append(root.val)
+        else:
+            self.level_dict[level] = list([root.val])
+        level += 1
+        self.recursion(root.left,level)
+        self.recursion(root.right,level)
+        level -= 1
+
+# 树，中等
+# https://leetcode-cn.com/problems/binary-tree-level-order-traversal/

@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2020-11-24 12:46:57
 LastEditors: Au3C2
-LastEditTime: 2021-03-15 12:42:56
+LastEditTime: 2021-03-22 15:59:40
 '''
 import collections    
 import heapq
@@ -43,42 +43,95 @@ def buildTree(tree:list):
         lastLevel = thisLevel
     return root
 
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
 
-def function(matrix):
-    m, n = len(matrix), len(matrix[0])
-    direc = [[0,1],[1,0],[0,-1],[-1,0]]
-    bound = [1,0,m-1,n-1] # 上左下右边界
-    res = list()
-    d = 0
-    x = 0
-    y = 0
-    i = 0
-    while 1:
-        res.append(matrix[x][y])
-        i += 1
-        if i == m*n:
-            break
+def buildList(l: list) -> ListNode:
+    head = None
+    last_node = None
+    for n in l:
+        if not head:
+            head = ListNode(n)
+            last_node = head
+        else:
+            node = ListNode(n)
+            last_node.next = node
+            last_node = node
+    return head
 
-        if direc[d][0] == 1 and x == bound[2]: #向下移动碰到边界
-            d = (d+1)%4
-            bound[2] -= 1
-        if direc[d][0] == -1 and x == bound[0]:#向上移动碰到边界
-            d = (d+1)%4
-            bound[0] += 1
+class Solution:
+    def __init__(self):
+        print('init...')
+    def function(self, n):
+        # res = 0
+        n = str(bin(n))
+        counter = collections.Counter(n)
+        return counter['1']
+        # for c in str(bin(n)):
+            
+        #     res += 1
 
-        if direc[d][1] == 1 and y == bound[3]:#向右移动碰到边界
-            d = (d+1)%4
-            bound[3] -= 1    
-        if direc[d][1] == -1 and y == bound[1]:#向左移动碰到边界
-            d = (d+1)%4
-            bound[1] += 1
+    def levelOrder(self, root):
+        self.output = list()
+        self.recursion(root)
+        n = len(self.output)
+        if n % 2 == 0:
+            return False
+        for i in range(n//2):
+            if self.output[i] != self.output[-i-1]:
+                return False
 
-        x += direc[d][0]
-        y += direc[d][1]
+        lastLevel = collections.deque()
+        lastLevel.append(root)
+        while lastLevel:
+            size = len(lastLevel)
+            thisLevel = collections.deque()
+            for _ in range(size):
+                cur = lastLevel.popleft()
+                if not cur:
+                    continue
+                # thisLevel.append(cur.val)
+                if cur.left:
+                    thisLevel.append(cur.left)
+                if cur.right:
+                    thisLevel.append(cur.right)
+            n = len(thisLevel)
+            for i in range(n//2):
+                if thisLevel[i].val != thisLevel[-i-1].val:
+                    return False
+            lastLevel = thisLevel
+               
+        return True
+
+    def recursion(self,root):
         
-    return res
-# null = None
-# root = buildTree([4,2,5,1,3,null,6,0])  
-# t2 = buildTree([2,1,3,null,4,null,7])            
-something = function([[1,2,3],[4,5,6],[7,8,9]])
+        if not root:
+            return None
+
+        if not root.left and root.right:
+            root.left = TreeNode('N')
+        if not root.right and root.left:
+            root.right = TreeNode('N')
+            
+        self.recursion(root.left)         
+        self.output.append(root.val) 
+        self.recursion(root.right)
+
+        # if left == None and right:
+        #     t = self.output.pop()
+        #     self.output.append(None)
+        #     self.output.append(t)
+            
+        # if right == None and left:
+        #     self.output.append(None)
+                              
+null = None
+# root = buildTree([-10,9,20,null,null,15,7])
+# t2 = buildTree([2,1,3,null,4,null,7])      
+# head = buildList([1,2,3,4,5])      
+S = Solution()
+# something = S.function(0b00000000000000000000000000001011)
+something = S.levelOrder(buildTree([1,2,2,3,4,4,3]))
 print(something)

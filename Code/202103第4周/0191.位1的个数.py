@@ -1,0 +1,13 @@
+'''
+Description: 
+Autor: Au3C2
+Date: 2021-03-22 15:30:57
+LastEditors: Au3C2
+LastEditTime: 2021-03-22 15:31:18
+'''
+class Solution:
+    def hammingWeight(self, n: int) -> int:
+        return bin(n).count("1")
+
+# 位运算，简单
+# https://leetcode-cn.com/problems/number-of-1-bits/

@@ -1,0 +1,41 @@
+'''
+Description: 
+Autor: Au3C2
+Date: 2021-03-15 16:36:26
+LastEditors: Au3C2
+LastEditTime: 2021-03-15 16:36:57
+'''
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def increasingBST(self, root: TreeNode) -> TreeNode:
+        def recursion(root):
+            
+            if not root:
+                return
+            
+            recursion(root.left)
+
+            # self.thisNode = TreeNode(root.val)
+            root.left = None
+            if not self.lastNode:
+                self.lastNode = root
+                self.head = root
+            else:
+                self.lastNode.right = root
+                self.lastNode = root
+            
+            recursion(root.right)
+
+        self.lastNode = None     
+        self.head = None
+
+        recursion(root)
+        return self.head
+
+# 树，dfs，简单
+# https://leetcode-cn.com/problems/increasing-order-search-tree/
