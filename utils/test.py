@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2020-11-24 12:46:57
 LastEditors: Au3C2
-LastEditTime: 2021-03-27 09:39:11
+LastEditTime: 2021-03-29 10:46:10
 '''
 import collections    
 import heapq
@@ -18,21 +18,11 @@ class Solution:
     def __init__(self):
         print('init...')
         
-    def function(self,head,k):
-        thisNode = head
-        n = 1
-        while thisNode.next:
-            n += 1
-            thisNode = thisNode.next
-        k = n - k % n
-        thisNode.next = head
-        n = 0
-        while n < k:
-            preNode = head
-            head = head.next
-            n += 1
-        preNode.next = None
-        return head
+    def function(self,n):
+        n = list('{:032b}'.format(n))
+        n.reverse()
+        # n = int(n)
+        return int(''.join(['0','b']+n),2)
                                         
 null = None
 # root = buildTree([-10,9,20,null,null,15,7])
@@ -40,5 +30,5 @@ null = None
 # head = buildList([1,2,3,4,5])      
 S = Solution()
 # something = S.function(2)
-something = S.function(buildList([0,1,2]),4)
+something = S.function(0b00000010100101000001111010011100)
 print(something)
