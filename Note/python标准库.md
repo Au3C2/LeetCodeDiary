@@ -1,3 +1,5 @@
+# python标准库
+
 摘抄自 [CSDN](https://blog.csdn.net/weixin_43352942/article/details/102882517)
 
 ```python
@@ -7,7 +9,7 @@ from itertools import combinations, permutations
 import bisect,heapq
 ```
 
-# `collections`
+## `collections`
 使用 `defaultdict` 和 `Counter` 可以节省很多步骤，`Counter` 统计列表的值出现的次数，并按多到少排序输出。
 
 ```python
@@ -51,7 +53,7 @@ print(d1)
 python字典现在是有序的了，除了上面的`move_to_end()`外，`pop()`，`popitem()`功能dict都能实现
 
 ```python
-# itertools模块
+## itertools模块
 itertools模块有很多功能，这里只讲常用的两个，combinations和permutations
 
 import itertools
@@ -64,10 +66,10 @@ import itertools
 #permutations生成的子列表包括重复，第一个参数为iterable对象，第二个参数为子列表的长度
 x = list(itertools.permutations('ABC',2))
 print(x)
-# x = [('A', 'B'), ('A', 'C'), ('B', 'A'), ('B', 'C'), ('C', 'A'), ('C', 'B')]
+## x = [('A', 'B'), ('A', 'C'), ('B', 'A'), ('B', 'C'), ('C', 'A'), ('C', 'B')]
 ```
 
-# `functools`
+## `functools`
 `functools.lru_cache()`是非常实用的装饰器，它实现了备忘功能，把函数的结果保存起来，避免函数传入相同的参数时重复计算,`lru_cache(maxsize,typed=False)`有两个可选的参数，第一个是指定储存多少个调用函数的结果，第二个设为True,会把不同参数类型的结果分开保存，即把通常认为相等的浮点数和整数参数区分开。这两个参数一般都用不到。
 在LeetCode中斐波那契数列的计算中使用`lru_cache`比没使用的快了40倍
 
@@ -82,7 +84,7 @@ class Solution:
         return self.fib(N-1) + self.fib(N-2)
 ```
 
-# `bisect`
+## `bisect`
 `bisect`采用二分查找法返回排序数组指定值的下标，如果指定值不存在，返回应该插入的下标位置
 
 ```python
@@ -95,38 +97,38 @@ x2 = bisect.bisect_right(arr,3)
 bisect.insort_left(arr,3)	#向arr左边插入值3
 print(arr)
 #arr = [1, 2, 3, 3, 4, 6, 7]
-# bisect.insort_right(arr,3)
+## bisect.insort_right(arr,3)
 ```
 
 
-# `gcd()`, `ord()`, `chr()`
+## `gcd()`, `ord()`, `chr()`
 `math.gcd(a,b)`用来求a和b两个数的最大公约数，刷LeetCode时有些题需要求公约数，使用gcd()会方便很多。
 
 `ord()` 函数是 `chr()` 函数的配对函数，它以一个字符（长度为1）作为参数，返回对应的数值。`chr()`则以数值作为参数，返回字符。
 
 ```python
-# from fractions import gcd    
+## from fractions import gcd    
 import math
 x = math.gcd(18,12)     #求最大公约数
 print(x)    #x = 6
 
-# ord('a')~ord('z') => 97~122	大写字母A--Z => 65--90
+## ord('a')~ord('z') => 97~122	大写字母A--Z => 65--90
 print(ord('a'))     #ord('a') => 97
 print(ord('z'))     #ord('z') => 122
 #更多符号
 for i in range(33,128):
     print(chr(i),end=' ')
 #输出如下注释：
-'''! " # $ % & ' ( ) * + , - . / 0 1 2 3 4 5 6 7 8 9 : ; < = > 
+'''! " ## $ % & ' ( ) * + , - . / 0 1 2 3 4 5 6 7 8 9 : ; < = > 
 ? @ A B C D E F G H I J K L M N O P Q R S T U V W X Y Z  [ \ ] 
 ^ _ ` a b c d e f g h i j k l m n o p q r s t u v w x y z { | } ~  '''
 
 #chr()函数则反过来
-print(chr(65))   # => 'A'
-print(chr(90))   # => 'Z'
+print(chr(65))   ## => 'A'
+print(chr(90))   ## => 'Z'
 ```
 
-# `heapq`
+## `heapq`
 
 * `heappush(heap, x) `：将x压入堆中
 * `heappop(heap)` ： 从堆中弹出最小的元素
