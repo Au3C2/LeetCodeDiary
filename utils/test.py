@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2020-11-24 12:46:57
 LastEditors: Au3C2
-LastEditTime: 2021-04-03 19:13:50
+LastEditTime: 2021-04-10 10:58:26
 '''
 import collections    
 import heapq
@@ -19,29 +19,19 @@ class Solution:
         pass
         
     def function(self,n):
-        square = [1]
-        i = 1
-        while True:
-            if i **2 < n:
-                square.append(i**2)
-                i += 1
-            elif i ** 2 == n:
-                return 1
+        n = abs(n)
+        while n > 0:
+            if n == 1:
+                return True
+            elif n % 2 == 0:
+                n = n//2
+            elif n % 3 == 0:
+                n = n//3
+            elif n % 5 == 0:
+                n = n//5
             else:
-                break
-        t = i-1
-        dp = [0]*(n+1)
-        j = 1
-        for i in range(1,n+1):
-            if j +1 <= t  and square[j+1] <= i:
-                j += 1  
-            mindp = dp[i-square[j]]
-            for k in range(j,0,-1):
-                mindp = min(dp[i-square[k]],mindp)
-            dp[i] = mindp + 1
-        return dp[n]
-
-            
+                return False
+        return True        
 
 null = None
 # root = buildTree([-10,9,20,null,null,15,7])
@@ -49,5 +39,6 @@ null = None
 # head = buildList([1,2,3,4,5])      
 S = Solution()
 # something = S.function(2)
-something = S.function(48)
+# something = S.function(nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3)
+something = S.function(-2147483648)
 print(something)
