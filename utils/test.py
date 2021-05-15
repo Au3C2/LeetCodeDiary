@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2020-11-24 12:46:57
 LastEditors: Au3C2
-LastEditTime: 2021-05-14 10:19:09
+LastEditTime: 2021-05-15 18:18:29
 '''
 import collections    
 import heapq
@@ -19,31 +19,25 @@ from typing import *
 class Solution:
     def __init__(self):
         pass
-    def function(self, num: int) -> str:
-        res = ''
-        i = 0
-        ROMES = [['I','V'],['X','L'],['C','D'],['M']]
-        while num > 0:
-            figure = num % 10
-            if 0 <= figure and figure <= 3:
-                rome = ROMES[i][0]*figure
-            elif figure == 4:
-                rome = ROMES[i][0]+ROMES[i][1]
-            elif 5 <= figure and figure < 9:
-                rome = ROMES[i][1]+ROMES[i][0]*(figure-5)
-            elif figure == 9:
-                rome = ROMES[i][0] + ROMES[i+1][0]
-            res = rome + res
-            i += 1
-            num = num // 10
-        return res
-
+    def function(self, s) -> int:
+        ROMES = {'I':1, 'V':5, 'X':10, 'L':50, 'C':100, 'D':500, 'M':1000}
+        # ROMES2 = {'IV':4, 'IX':9, 'XL':40, 'XC':90, 'CD':400, 'CM':900}
+        n = len(s)
+        ans = 0
+        for i in range(n-1):
+            if ROMES[s[i]] < ROMES[s[i+1]]:
+                ans -= ROMES[s[i]]
+            else:
+                ans += ROMES[s[i]]
+        ans += ROMES[s[-1]]
+        return ans
+            
 # null = None
 # root1 = buildTree([1])
 # root2 = buildTree([2])      
 # head = buildList([1,2,3,4,5])      
 S = Solution()
-something = S.function(num = 58)
+something = S.function("LVIII")
 # something = S.function(nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3)
 # something = S.function([" /","/ "])
 print(something)
