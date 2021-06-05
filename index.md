@@ -3,9 +3,13 @@
  * @Autor: Au3C2
  * @Date: 2020-11-28 17:28:26
  * @LastEditors: Au3C2
- * @LastEditTime: 2021-05-29 12:19:35
+ * @LastEditTime: 2021-06-05 15:18:45
 -->
 # LeetCode Diary
+
+## 202106
+* [第一周](Note/202106第1周.md)
+
 ## 202105
 * [第一周](Note/202105第1周.md)
 * [第二周](Note/202105第2周.md)
