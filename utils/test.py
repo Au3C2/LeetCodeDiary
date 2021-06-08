@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2020-11-24 12:46:57
 LastEditors: Au3C2
-LastEditTime: 2021-06-07 10:58:08
+LastEditTime: 2021-06-08 10:49:15
 '''
 import collections
 import heapq
@@ -23,26 +23,23 @@ class Solution:
     def __init__(self):
         pass
 
-    def function(self, nums: List[int], target: int) -> int:
-        sumN = sum(nums)
-        diff = sumN-target
-        if diff<0 or diff%2 != 0:
-            return 0
-        n = len(nums)
-        neg = diff//2
-        row = [0]*(neg+1)
-        row[0] = 1
+    def function(self, stones: List[int]) -> int:
+        sumN = sum(stones)
+        n = len(stones)
+        neg = sumN//2
+        dp = [0]*(neg+1)
         for i in range(1,n+1):
             for j in range(neg,-1,-1):
-                if j >= nums[i-1]:
-                    row[j] += row[j-nums[i-1]]
-        return row[neg]      
+                # dp[i][j] = dp[i-1][j]
+                if j >= stones[i-1]:
+                    dp[j] = max(dp[j],dp[j-stones[i-1]] + stones[i-1])
+        return abs(sumN - dp[neg]*2)
         
 # root1 = buildTree([1])
 # root2 = buildTree([2])
 # head = buildList([1,2,3,4,5])
 S = Solution()
-something = S.function(nums = [1,0], target = 1)
+something = S.function(stones = [31,26,33,21,40])
 # something = S.function(nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3)
 # something = S.function([" /","/ "])
 print(something)
