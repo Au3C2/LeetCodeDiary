@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2020-11-24 12:46:57
 LastEditors: Au3C2
-LastEditTime: 2021-06-15 10:05:10
+LastEditTime: 2021-06-19 12:44:40
 '''
 import collections
 import heapq
@@ -23,17 +23,25 @@ class Solution:
     def __init__(self):
         pass
 
-    def function(self, arr: List[int]) -> int:
+    def function(self, arr: List[str]) -> int:
         n = len(arr)
-        for i in range(1,n-1):
-            if arr[i-1] < arr[i] and arr[i] < arr[i+1]:
-                return i
+        if n == 1: return len(set(arr[0]))
+        binary = []
+        for s in arr:
+            b = 0
+            for c in s:
+                b |= 1 << (ord(c)-ord('a'))
+            binary.append(b)
+        # preXOR = []
+        # for b in binary:
+            
+        pass
         
 # root1 = buildTree([1])
 # root2 = buildTree([2])
 # head = buildList([1,2,3,4,5])
 S = Solution()
-something = S.function(stones = [31,26,33,21,40])
+something = S.function(arr = ["cha","r","act","ers"])
 # something = S.function(nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3)
 # something = S.function([" /","/ "])
 print(something)
