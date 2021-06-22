@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2020-11-24 12:46:57
 LastEditors: Au3C2
-LastEditTime: 2021-06-21 10:50:10
+LastEditTime: 2021-06-22 11:06:36
 '''
 import collections
 import heapq
@@ -23,34 +23,20 @@ class Solution:
     def __init__(self):
         pass
 
-    def function(self, turnedOn: int) -> List[str]:
-        if turnedOn>8:
-            return []
-        mCount = {}
-        for m in range(60):            
-            bits = bin(m).count('1')
-            s = '{:0>2d}'.format(m)
-            if bits in mCount:
-                mCount[bits].append(s)
+    def function(self, s: str) -> List[str]:
+        def recursion(s:str):
+            if not s: 
+                return ''
             else:
-                mCount[bits] = [s]
-        hCount = {}
-        for h in range(12):            
-            bits = bin(h).count('1')
-            s = '{:d}'.format(h)
-            if bits in hCount:
-                hCount[bits].append(s)
-            else:
-                hCount[bits] = [s]
-        ans = []
-        for i in range(turnedOn+1): # 遍历小时
-            if i > 3:
-                break
-            if turnedOn-i>5:
-                continue
-            for h in hCount[i]:
-                for m in mCount[turnedOn-i]:
-                    ans.append(h+':'+m)
+                ans = []
+                for i,c in enumerate(s):
+                    res = recursion(s[:i]+s[i+1:])
+                    if res == '':
+                        ans.append(c)
+                    for r in res:
+                        ans.append(c+r)
+            return ans
+        ans = recursion(s)
         return ans
         pass
         
@@ -58,7 +44,7 @@ class Solution:
 # root2 = buildTree([2])
 # head = buildList([1,2,3,4,5])
 S = Solution()
-something = S.function(turnedOn = 0)
+something = S.function(s = "abc")
 # something = S.function(nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3)
 # something = S.function([" /","/ "])
 print(something)
