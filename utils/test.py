@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2020-11-24 12:46:57
 LastEditors: Au3C2
-LastEditTime: 2021-07-08 16:52:55
+LastEditTime: 2021-07-09 11:14:11
 '''
 import collections
 import heapq
@@ -25,51 +25,21 @@ class Solution:
     def __init__(self):
         pass
 
-    def function(self, nums: List[int], goal: int) -> int:
-        n = len(nums)
-        presum = [0] + list(accumulate(nums))
-        # hashmap = defaultdict(int, {0:1})
-        hashmap = Counter([0])
-        ans = 0
-        for i in range(n):
-            r = presum[i+1]
-            # if r < goal:
-            #     break
-            l = r - goal
-            ans += hashmap[l]
-            hashmap[r] += 1
-        return ans
-        
-        # 暴力搜索超时
-        # for i in range(n):  
-        #     for j in range(i+1,n+1):
-        #         d = pre_sum[j] - pre_sum[i]
-        #         if d > goal:
-        #             break
-        #         if d == goal:
-        #             ans += 1
-        
-        # 滑动窗口写不来
-        # lp, rp = 0, 0
-        # w = nums[0] # 记录窗口和
-
-        # while w != goal: # 初始化窗口
-        #     rp += 1
-        #     w += nums[rp]
-        # ans = 1
-        # while lp < n-1:
-        #     while w == goal and rp < n-1:
-        #         rp += 1
-        #         w += nums[rp]
-        #         ans += 1
-        #     # rp -= 1
-        #     # w -= nums[rp]
-        #     # ans -= 1
-
-        #     lp += 1
-        #     w -= nums[lp]
-
-        # return ans
+    def function(self,  nums: List[int]) -> int:
+        candidate = -1
+        count = 0
+        for num in nums:
+            if count == 0:
+                candidate = num
+            if num == candidate:
+                count += 1
+            else:
+                count -= 1
+        count = 0
+        for num in nums:
+            if num == candidate:
+                count += 1
+        return candidate if count > len(nums)/2 else -1
         
         pass
         
@@ -77,7 +47,7 @@ class Solution:
 # root2 = buildTree([2])
 # head = buildList([1,2,3,4,5])
 S = Solution()
-something = S.function([1,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1,0], 3)
+something = S.function([1,2,3])
 # something = S.function(nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3)
 # something = S.function([" /","/ "])
 print(something)
