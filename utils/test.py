@@ -3,14 +3,14 @@ Description:
 Autor: Au3C2
 Date: 2020-11-24 12:46:57
 LastEditors: Au3C2
-LastEditTime: 2021-07-09 11:14:11
+LastEditTime: 2021-07-10 11:20:53
 '''
 import collections
 import heapq
 from collections import defaultdict, deque
 from functools import *
 import numpy as np
-import bisect
+from bisect import *
 import math
 from scipy.special import comb, perm
 from utils import *
