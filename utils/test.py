@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2020-11-24 12:46:57
 LastEditors: Au3C2
-LastEditTime: 2021-07-14 12:59:00
+LastEditTime: 2021-07-14 17:01:34
 '''
 import collections
 import copy
@@ -29,29 +29,30 @@ class Solution:
     def __init__(self):
         self.MAX_SIZE = 10 ** 9 + 7
         pass
-
-    def function(self, nums1: List[int], nums2: List[int]) -> int: 
-        nums1Sorted = sorted(nums1)
-        ans, nd = 0, 0
-        for i in range(n:=len(nums1)):
-            diff = abs(nums1[i] - nums2[i])
-            if diff == 0: continue
-            idx = bisect.bisect(nums1Sorted,nums2[i])
-            if idx < n:
-                nd = max([diff-abs(nums1Sorted[idx]-nums2[i]), nd])
-            if idx > 1:
-                nd = max([diff-abs(nums1Sorted[idx-1]-nums2[i]), nd])
-            if idx < n-1:
-                nd = max([diff-abs(nums1Sorted[idx+1]-nums2[i]), nd])
-            if idx >= n-1:
-                nd = max([diff-abs(nums1Sorted[-1]-nums2[i]), nd])
-            ans += diff
-        return (ans - nd) % self.MAX_SIZE
+                    
+    def function(self, numCourses: int, prerequisites: List[List[int]], queries: List[List[int]]) -> List[bool]:
+        """
+        :type n: int
+        :type prerequisites: List[List[int]]
+        :type queries: List[List[int]]
+        :rtype: List[bool]
+        """
+        self.graph = collections.defaultdict(list)
+        for pre in prerequisites:
+            self.graph[pre[0]].append(pre[1])
+        return [self.dfs(query[0], query[1]) for query in queries]
+    
+    # start -> end ?
+    @lru_cache
+    def dfs(self, start, end):
+        if start == end:
+            return True
+        return any(self.dfs(nxt, end) for nxt in self.graph[start])
         pass
         
 # root1 = buildTree([1])
 # root2 = buildTree([2])
 # head = buildList([1,2,3,4,5])
 S = Solution()
-something = S.function(nums1 = [1,7,5], nums2 = [2,3,5])
+something = S.function()
 print(something)
