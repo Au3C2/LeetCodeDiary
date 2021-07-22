@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2021-03-25 20:31:55
 LastEditors: Au3C2
-LastEditTime: 2021-04-26 10:14:00
+LastEditTime: 2021-07-22 13:34:36
 '''
 import collections    
 import heapq
@@ -21,7 +21,12 @@ class TreeNode:
         self.val = x
         self.left = None
         self.right = None
-
+class Node:
+    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
+        self.val = int(x)
+        self.next = next
+        self.random = random
+        
 def buildTree(data:list):
     if not data: return
     n = len(data)
