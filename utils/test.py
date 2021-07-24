@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2020-11-24 12:46:57
 LastEditors: Au3C2
-LastEditTime: 2021-07-22 16:11:19
+LastEditTime: 2021-07-24 10:40:41
 '''
 import copy
 import heapq
@@ -28,29 +28,26 @@ class Solution:
         self.MAX_SIZE = 10 ** 9 + 7
         pass
                     
-    def function(self, head: 'Node') -> 'Node':
-        h = Node(-1,head)
-        p = h.next
-        while p:
-            node = Node(p.val, p.next)
-            p.next = node
-            p = node.next
-        p = h.next
-        while p:
-            if p.random:
-                p.next.random = p.random.next
-            p = p.next.next
-        p = h.next.next
-        while p:
-            if p.next:
-                p.next = p.next.next
-            p = p.next
-        return h.next.next
-        
+    def function(self, time: str) -> str:
+        if time[0] == '?':
+            # time[0] = '2'
+            time = '2' + time[1:]
+        if time[1] == '?':
+            if time[0] == '2':
+                # time[1] = '3'
+                time = time[0] + '3' + time[2:]
+            else:
+                time = time[0] + '9' + time[2:]
+        if time[3] == '?':
+            time = time[:3] + '5' + time[4]
+        if time[4] == '?':
+            time = time[:4] + '9'
+        return time
+
  
 # root1 = buildTree([1])
 # root2 = buildTree([2])
 # head = buildList([1,2,3,4,5])
 S = Solution()
-something = S.function( buildList([0,9,1,2,4]),  buildList([3,2,4]))
+something = S.function( time = "2?:?0")
 print(something)
