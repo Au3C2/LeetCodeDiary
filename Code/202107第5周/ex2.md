@@ -1,10 +1,14 @@
-'''
-Description: 
-Autor: Au3C2
-Date: 2021-07-30 16:45:50
-LastEditors: Au3C2
-LastEditTime: 2021-07-30 17:03:24
-'''
+<!--
+ * @Description: 
+ * @Autor: Au3C2
+ * @Date: 2021-07-30 16:45:50
+ * @LastEditors: Au3C2
+ * @LastEditTime: 2021-07-31 15:11:41
+-->
+利用拓扑排序即可
+
+```python
+
 import collections
 import sys
 
@@ -33,7 +37,7 @@ for i in depend:
 day = 0
 
 # 队列初始化，将能喝的药放入队列中
-queue = []
+queue = queue.dequeue()
 for k, v in depend_num.items():
     if v == 0:
         queue.append(k)
@@ -44,7 +48,7 @@ day = 0
 while queue:
     len_ = len(queue)
     for _ in range(min(n, len_)):  # 喝上当天最多能喝的数量:
-        tmp = queue.pop(0)
+        tmp = queue.popleft()
         for j in edge[tmp]:
             depend_num[j] -= 1
             if depend_num[j] == 0: # 此刻该药的所有依赖药都吃了，因此这药能吃，送入队列
@@ -52,3 +56,4 @@ while queue:
     day += 1
 
 print(day)
+```

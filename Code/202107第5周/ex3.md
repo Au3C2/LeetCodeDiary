@@ -1,10 +1,13 @@
-'''
-Description: 
-Autor: Au3C2
-Date: 2021-07-30 16:12:41
-LastEditors: Au3C2
-LastEditTime: 2021-07-30 16:43:57
-'''
+<!--
+ * @Description: 
+ * @Autor: Au3C2
+ * @Date: 2021-07-30 16:12:41
+ * @LastEditors: Au3C2
+ * @LastEditTime: 2021-07-31 15:12:45
+-->
+回溯算法即可，记得回溯完置0
+
+```python
 import sys
 # sys.setrecursionlimit(1000000)
 # m, n = list(map(int, sys.stdin.readline().strip(' ').strip('\n').strip(' ').split(' ')))
@@ -51,3 +54,4 @@ def dfs(x, y, t_walk_n, m, n, walk_n):
 
 dfs(start[0], start[1], 0, m, n, walk_n)
 print(res[0])
+```
