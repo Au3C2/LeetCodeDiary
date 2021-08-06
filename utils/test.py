@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2021-06-15 10:05:35
 LastEditors: Au3C2
-LastEditTime: 2021-08-05 15:59:18
+LastEditTime: 2021-08-06 11:14:25
 '''
 import copy
 import heapq
@@ -27,27 +27,28 @@ class Solution:
     def __init__(self):
         pass
                     
-    def function(self, graph: List[List[int]]) -> List[int]:
+    def function(self, graph: List[List[int]]) -> int:
         n = len(graph)
-        iG = [ [] for _ in range(n) ] # 反向图
-        ic = [0] * n # 图的入度图
-        for s, es in enumerate(graph): # start, end
-            for e in es:
-                iG[e].append(s)
-                # ic[e] += 1
-            ic[s] = len(es)
-        q = deque([i for i, n in enumerate(ic) if n == 0])
+        q = deque([ (i, 1 << i) for i in range(n)])
+        visited = set(q)
+        step = 0
         while q:
-            cur = q.popleft()
-            for nei in iG[cur]:
-                ic[nei] -= 1
-                if ic[nei] == 0:
-                    q.append(nei)
-        return [i for i, n in enumerate(ic) if n == 0]
+            nq = len(q)
+            for _ in range(nq):
+                cur, status = q.popleft()
+                for nei in graph[cur]:
+                    new_status = status | (1 << nei)
+                    if new_status == ((1 << n)-1):
+                        return step + 1
+                    if (nei,new_status) not in visited:
+                        visited.add((nei, new_status))
+                        q.append((nei, new_status))
+            step += 1
+        return 0
 
 # root1 = buildTree([1])
 # root2 = buildTree([2])
 # head = buildList([1,2,3,4,5])
 S = Solution()
-something = S.function(graph = [[4,9],[3,5,7],[0,3,4,5,6,8],[7,8,9],[5,6,7,8],[6,7,8,9],[7,9],[8,9],[9],[]])
+something = S.function(graph = [[1,2,3,4,5,6,7,8,9,10,11],[0,2,5,6,8],[0,1,4,5,6,9,10,11],[0,4,5,6,8,9,10,11],[0,2,3,5,6,8,10],[0,1,2,3,4,6,8,9,10,11],[0,1,2,3,4,5,8,10,11],[0,8],[0,1,3,4,5,6,7,9,10,11],[0,2,3,5,8,10],[0,2,3,4,5,6,8,9],[0,2,3,5,6,8]])
 print(something)
