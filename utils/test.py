@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2021-06-15 10:05:35
 LastEditors: Au3C2
-LastEditTime: 2021-08-06 11:14:25
+LastEditTime: 2021-08-07 11:36:42
 '''
 import copy
 import heapq
@@ -27,28 +27,26 @@ class Solution:
     def __init__(self):
         pass
                     
-    def function(self, graph: List[List[int]]) -> int:
-        n = len(graph)
-        q = deque([ (i, 1 << i) for i in range(n)])
-        visited = set(q)
-        step = 0
-        while q:
-            nq = len(q)
-            for _ in range(nq):
-                cur, status = q.popleft()
-                for nei in graph[cur]:
-                    new_status = status | (1 << nei)
-                    if new_status == ((1 << n)-1):
-                        return step + 1
-                    if (nei,new_status) not in visited:
-                        visited.add((nei, new_status))
-                        q.append((nei, new_status))
-            step += 1
-        return 0
+    def function(self, nums: List[int]) -> bool:
+        n = len(nums)
+        for i in range(n):
+            path = [-1] * n
+            path[i] = 0
+            next_i = (i+nums[i])%n
+            step = 0
+            while nums[i] * nums[next_i] > 0 and i != next_i: # 保证下一步是同号
+                if path[next_i] != -1 and step - path[next_i] > 0:
+                    return True
+                step += 1
+                path[next_i] = step
+                i, next_i = next_i, (next_i+nums[next_i])%n
+
+        return False
+
 
 # root1 = buildTree([1])
 # root2 = buildTree([2])
 # head = buildList([1,2,3,4,5])
 S = Solution()
-something = S.function(graph = [[1,2,3,4,5,6,7,8,9,10,11],[0,2,5,6,8],[0,1,4,5,6,9,10,11],[0,4,5,6,8,9,10,11],[0,2,3,5,6,8,10],[0,1,2,3,4,6,8,9,10,11],[0,1,2,3,4,5,8,10,11],[0,8],[0,1,3,4,5,6,7,9,10,11],[0,2,3,5,8,10],[0,2,3,4,5,6,8,9],[0,2,3,5,6,8]])
+something = S.function(nums = [3,1,2])
 print(something)
