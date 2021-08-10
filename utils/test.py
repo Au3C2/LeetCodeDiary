@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2021-06-15 10:05:35
 LastEditors: Au3C2
-LastEditTime: 2021-08-09 10:58:02
+LastEditTime: 2021-08-10 11:02:27
 '''
 import copy
 import heapq
@@ -27,26 +27,23 @@ class Solution:
     def __init__(self):
         pass
                     
-    def function(self, n: int, primes: List[int]) -> int:
-        if n < 0:
+    def function(self, nums: List[int]) -> int:
+        if (n:=len(nums)) < 3:
             return 0
-        dp = [float('inf')] * n
-        dp[0] = 1
-        np = len(primes)
-        index = [0] * np
-        for i in range(1, n):
-            for j in range(np):
-                if primes[j] * dp[index[j]] <= dp[i]:
-                    dp[i] = primes[j] * dp[index[j]]
-            for j in range(np):
-                if dp[i] == primes[j] * dp[index[j]]:
-                    index[j] += 1
-        return dp[n-1]
+        diff = [nums[i]-2*nums[i-1]+nums[i-2] for i in range(2,n)]
+        count, ans = 0, 0
+        for d in diff:
+            if d:
+                count = 0
+                continue
+            count += 1
+            ans += count            
+        return ans
 
 
 # root1 = buildTree([1])
 # root2 = buildTree([2])
 # head = buildList([1,2,3,4,5])
 S = Solution()
-something = S.function(n = 12, primes = [2,7,13,19])
+something = S.function([1,2,3,4,5,6,7,8,0,1,2,4,6,8,10])
 print(something)
