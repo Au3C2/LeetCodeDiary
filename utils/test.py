@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2021-06-15 10:05:35
 LastEditors: Au3C2
-LastEditTime: 2021-08-13 13:18:47
+LastEditTime: 2021-08-14 11:34:14
 '''
 import copy
 import heapq
@@ -26,23 +26,39 @@ null = None
 class Solution:
     def __init__(self):
         pass
-    def function(self, n: int) -> int:
-        digit, res = 1, 0
-        high, cur, low = n // 10, n % 10, 0
-        while high != 0 or cur != 0: # 当 high 和 cur 同时为 0 时，说明已经越过最高位，因此跳出
-            if cur == 0: res += high * digit
-            elif cur == 1: res += high * digit + low + 1
-            else: res += (high + 1) * digit
-            low += cur * digit # 将 cur 加入 low ，组成下轮 low
-            cur = high % 10  # 下轮 cur 是本轮 high 的最低位
-            high //= 10  # 将本轮 high 最低位删除，得到下轮 high
-            digit *= 10 # 位因子每轮 × 10
-        return res
+    def function(self, n: int, preferences: List[List[int]], pairs: List[List[int]]) -> int:
+        n = len(preferences)
+        prefer_index = [[-1] * n for _ in range(n)]
+        for i in range(n):
+            for j in range(n-1):
+                prefer_index[i][preferences[i][j]] = j # 快速索引朋友的排序
+        pairs_d = [0] * n
+        for x, y in pairs:
+            pairs_d[x] = y
+            pairs_d[y] = x
+        unhappy = set()
+        
+        # 挨个检查每个人
+        for x in range(n):
+            if x in unhappy:
+                continue
+            y = pairs_d[x] # x 的对象
+            idx_y = prefer_index[x][y] # y在x的排序
+            # 搜索 x 中排在 y 前面的朋友，并且挨个检查
+            for u in preferences[x][:idx_y]:
+                # 检查u的配对
+                v = pairs_d[u]
+                if prefer_index[u][x] < prefer_index[u][v]:
+                    unhappy.add(x)
+                    unhappy.add(u)
+        return len(unhappy)
 
 
 # root1 = buildTree([1])
 # root2 = buildTree([2])
 # head = buildList([1,2,3,4,5])
 S = Solution()
-something = S.function(824883294)
+something = S.function(4,
+[[1,3,2],[0,2,3],[3,1,0],[2,0,1]],
+[[2,1],[3,0]])
 print(something)
