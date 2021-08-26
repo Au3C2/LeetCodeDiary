@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2021-06-15 10:05:35
 LastEditors: Au3C2
-LastEditTime: 2021-08-20 14:23:38
+LastEditTime: 2021-08-26 11:17:11
 '''
 import copy
 import heapq
@@ -26,25 +26,22 @@ null = None
 class Solution:
     def __init__(self):
         pass
-    def function(self, s: str, k: int) -> str:
-        s = list(s)
-        n = len(s)
-        i = -1
-        for i in range(n//(2*k)):
-            t = s[i*2*k:i*2*k+k]
-            s[i*2*k:i*2*k+k] = t[::-1]
-        i += 1
-        if n % (2*k) >= k:
-            t = s[i*2*k:i*2*k+k]
-            s[i*2*k:i*2*k+k] = t[::-1]
-        else:
-            t = s[i*2*k:]
-            s[i*2*k:] = t[::-1]
-        return ''.join(s)
-
+    def function(self, people: List[int], limit: int) -> int:
+        people.sort(reverse=True)
+        n = len(people)
+        ans, lp, rp = 0, 0, n-1
+        while lp <= rp:
+            if lp == rp:
+                rp -= 1
+            if people[rp] + people[lp] <= limit:
+                rp -= 1
+            ans += 1
+            lp += 1
+        return ans         
+            
 # root1 = buildTree([1])
 # root2 = buildTree([2])
 # head = buildList([1,2,3,4,5])
 S = Solution()
-something = S.function("abcd",3)
+something = S.function(people = [3,5,3,4], limit = 5)
 print(something)
