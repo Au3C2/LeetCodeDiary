@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2021-06-15 10:05:35
 LastEditors: Au3C2
-LastEditTime: 2021-08-28 22:06:50
+LastEditTime: 2021-08-29 23:43:41
 '''
 import copy
 import heapq
@@ -26,24 +26,22 @@ null = None
 class Solution:
     def __init__(self):
         pass
-    def function(self, dicts, s):
-        n = len(s)
-        @lru_cache()
-        def recursion(s):
-            if not s:
-                return True
-            res = False
-            for i in range(1, len(s)+1):
-                if s[:i] in dicts:
-                    res = recursion(s[i:]) or res
-            return res
-        return recursion(s)
+    def function(self, arr: List[int]) -> int:
+        n = len(arr)
+        preSum = [0] * (n+1)
+        for i in range(n):
+            preSum[i+1] = preSum[i] + arr[i]
+        ans = 0
+        for w in range(1,n+1,2):
+            for i in range(n-w+1):
+                ans += (preSum[i+w] - preSum[i])
+        return ans
+
         
             
 # root1 = buildTree([1])
 # root2 = buildTree([2])
 # head = buildList([1,2,3,4,5])
 S = Solution()
-something = S.function(["cat", "dog", "cats", "and", "sand"]
-, "catsanddog")
+something = S.function([1,4,2,5,3])
 print(something)
