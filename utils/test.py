@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2021-06-15 10:05:35
 LastEditors: Au3C2
-LastEditTime: 2021-09-13 15:45:41
+LastEditTime: 2021-09-14 10:35:15
 '''
 import copy
 import heapq
@@ -26,19 +26,23 @@ null = None
 class Solution:
     def __init__(self):
         pass
-    def function(self, points: List[List[int]]) -> int:
-        ans = 0
-        for [xi, yi] in points:
-            d = Counter()
-            for [xj, yj] in points:
-                if xi == xj and yi == yj: continue
-                dist = (xi-xj)**2 + (yi-yj)**2
-                d[dist] += 1
-            for _, v in d.items():
-                if v >= 2:
-                    ans += v * (v-1)
-        return ans
-
+    def function(self, s: str, dictionary: List[str]) -> str:
+        # dicts = []
+        m = len(s)
+        for i, word in enumerate(dictionary):
+            dictionary[i] = (-len(word), word)
+        dictionary.sort(key=lambda d:(d[0], d[1]))
+        # print(dictionary)
+        for n, word in dictionary:
+            i, j = 0, 0 
+            n = -n
+            while i < m and j < n:
+                if s[i] == word[j]:
+                    j += 1
+                i += 1
+            if j == n:
+                return word
+        return ''
         
             
 # root1 = buildTree([1])
@@ -46,5 +50,5 @@ class Solution:
 # head = buildList([1,2,3,4,5])
 
 S = Solution()
-something = S.function([[0,0],[1,0],[-1,0],[0,1],[0,-1]])
+something = S.function("abpcplea",["ale","apple","monkey","plea"])
 print(something)
