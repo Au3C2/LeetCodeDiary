@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2021-06-15 10:05:35
 LastEditors: Au3C2
-LastEditTime: 2021-09-14 10:35:15
+LastEditTime: 2021-09-17 12:03:43
 '''
 import copy
 import heapq
@@ -26,23 +26,36 @@ null = None
 class Solution:
     def __init__(self):
         pass
-    def function(self, s: str, dictionary: List[str]) -> str:
-        # dicts = []
-        m = len(s)
-        for i, word in enumerate(dictionary):
-            dictionary[i] = (-len(word), word)
-        dictionary.sort(key=lambda d:(d[0], d[1]))
-        # print(dictionary)
-        for n, word in dictionary:
-            i, j = 0, 0 
-            n = -n
-            while i < m and j < n:
-                if s[i] == word[j]:
-                    j += 1
-                i += 1
-            if j == n:
-                return word
-        return ''
+    def function(self, board: List[List[str]]) -> bool:
+        for i in range(9):
+            r, c = set(), set()
+            for j in range(9):
+                # 检测行
+                ch = board[i][j]
+                if ch != '.':
+                    if ch in r:
+                        return False
+                    else:
+                        r.add(ch)
+                # 检测列
+                ch = board[j][i]
+                if ch != '.':
+                    if ch in c:
+                        return False
+                    else:
+                        c.add(ch)
+        for i in [0,3,6]: # 控制大九宫格的行
+            for j in [0,3,6]: # 控制大九宫格的列
+                s = set()
+                for m in range(3):  # 控制小九宫格的行
+                    for n in range(3): # 控制小九宫格的列
+                        ch = board[i+m][j+n]
+                        if ch != '.':
+                            if ch in s:
+                                return False
+                            else:
+                                s.add(ch)
+        return True
         
             
 # root1 = buildTree([1])
@@ -50,5 +63,14 @@ class Solution:
 # head = buildList([1,2,3,4,5])
 
 S = Solution()
-something = S.function("abpcplea",["ale","apple","monkey","plea"])
+something = S.function(
+   [[".",".",".",".","5",".",".","1","."],
+    [".","4",".","3",".",".",".",".","."],
+    [".",".",".",".",".","3",".",".","1"],
+    ["8",".",".",".",".",".",".","2","."],
+    [".",".","2",".","7",".",".",".","."],
+    [".","1","5",".",".",".",".",".","."],
+    [".",".",".",".",".","2",".",".","."],
+    [".","2",".","9",".",".",".",".","."],
+    [".",".","4",".",".",".",".",".","."]])
 print(something)
