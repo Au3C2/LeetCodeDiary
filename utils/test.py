@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2021-06-15 10:05:35
 LastEditors: Au3C2
-LastEditTime: 2021-09-17 12:03:43
+LastEditTime: 2021-09-22 12:14:52
 '''
 import copy
 import heapq
@@ -26,36 +26,37 @@ null = None
 class Solution:
     def __init__(self):
         pass
-    def function(self, board: List[List[str]]) -> bool:
-        for i in range(9):
-            r, c = set(), set()
-            for j in range(9):
-                # 检测行
-                ch = board[i][j]
-                if ch != '.':
-                    if ch in r:
-                        return False
-                    else:
-                        r.add(ch)
-                # 检测列
-                ch = board[j][i]
-                if ch != '.':
-                    if ch in c:
-                        return False
-                    else:
-                        c.add(ch)
-        for i in [0,3,6]: # 控制大九宫格的行
-            for j in [0,3,6]: # 控制大九宫格的列
-                s = set()
-                for m in range(3):  # 控制小九宫格的行
-                    for n in range(3): # 控制小九宫格的列
-                        ch = board[i+m][j+n]
-                        if ch != '.':
-                            if ch in s:
-                                return False
-                            else:
-                                s.add(ch)
-        return True
+    def function(self, head: ListNode, k: int) -> List[ListNode]:
+        n = 0
+        p = head
+        while p:
+            n += 1
+            p = p.next
+        ans, cur = [], head
+        if n <= k:
+            while cur:
+                ans.append(cur)
+                cur.next, cur = None, cur.next
+            while k - n > 0:
+                ans.append(None)
+                n += 1
+        else:
+            i, m, pre, j = 0, n//k, None, n%k
+            while i<(m+1)*j:
+                if i%(m+1) == 0:
+                    ans.append(cur)
+                    if pre: 
+                        pre.next = None
+                pre, cur = cur, cur.next
+                i += 1
+            while i < n:
+                if (i-(m+1)*j)%m == 0:
+                    ans.append(cur)
+                    if pre: 
+                        pre.next = None
+                pre, cur = cur, cur.next
+                i += 1
+        return ans
         
             
 # root1 = buildTree([1])
@@ -63,14 +64,5 @@ class Solution:
 # head = buildList([1,2,3,4,5])
 
 S = Solution()
-something = S.function(
-   [[".",".",".",".","5",".",".","1","."],
-    [".","4",".","3",".",".",".",".","."],
-    [".",".",".",".",".","3",".",".","1"],
-    ["8",".",".",".",".",".",".","2","."],
-    [".",".","2",".","7",".",".",".","."],
-    [".","1","5",".",".",".",".",".","."],
-    [".",".",".",".",".","2",".",".","."],
-    [".","2",".","9",".",".",".",".","."],
-    [".",".","4",".",".",".",".",".","."]])
+something = S.function(buildList([1,2,3,4,5,6,7,8,9,10]), 4)
 print(something)
