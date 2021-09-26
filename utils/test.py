@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2021-06-15 10:05:35
 LastEditors: Au3C2
-LastEditTime: 2021-09-22 12:14:52
+LastEditTime: 2021-09-26 11:27:52
 '''
 import copy
 import heapq
@@ -26,43 +26,24 @@ null = None
 class Solution:
     def __init__(self):
         pass
-    def function(self, head: ListNode, k: int) -> List[ListNode]:
-        n = 0
-        p = head
-        while p:
-            n += 1
-            p = p.next
-        ans, cur = [], head
-        if n <= k:
-            while cur:
-                ans.append(cur)
-                cur.next, cur = None, cur.next
-            while k - n > 0:
-                ans.append(None)
-                n += 1
-        else:
-            i, m, pre, j = 0, n//k, None, n%k
-            while i<(m+1)*j:
-                if i%(m+1) == 0:
-                    ans.append(cur)
-                    if pre: 
-                        pre.next = None
-                pre, cur = cur, cur.next
-                i += 1
-            while i < n:
-                if (i-(m+1)*j)%m == 0:
-                    ans.append(cur)
-                    if pre: 
-                        pre.next = None
-                pre, cur = cur, cur.next
-                i += 1
-        return ans
-        
+    def function(self, a: int, b: int) -> int:
+        MASK1 = 4294967296  # 2^32，1后面32个0
+        MASK2 = 2147483648  # 2^31，1后面31个0
+        MASK3 = 2147483647  # 2^31-1，31个1
+        while b != 0:
+            carry = ((a & b) << 1) % MASK1
+            a = (a ^ b) % MASK1
+            b = carry
+        if a & MASK2:  # 负数，这里算出来是a的补码，要取反再+1成原码 
+            return ~((a ^ MASK2) ^ MASK3)
+        else:  # 正数
+            return a
+       
             
 # root1 = buildTree([1])
 # root2 = buildTree([2])
 # head = buildList([1,2,3,4,5])
 
 S = Solution()
-something = S.function(buildList([1,2,3,4,5,6,7,8,9,10]), 4)
+something = S.function(a = -2, b = 1)
 print(something)
