@@ -3,7 +3,7 @@ Description:
 Autor: Au3C2
 Date: 2021-06-15 10:05:35
 LastEditors: Au3C2
-LastEditTime: 2021-09-28 10:59:24
+LastEditTime: 2021-10-03 11:34:21
 '''
 import copy
 import heapq
@@ -26,34 +26,43 @@ null = None
 class Solution:
     def __init__(self):
         pass
-    def function(self, root: TreeNode, targetSum: int) -> int:
-        #对树做前序遍历同时做前缀和，同时记录祖先中的前缀和，在回溯时删除
-        prefix_sum = defaultdict(int) #记录路径中不同前缀和的数量
-        prefix_sum[0] = 1 #哨兵，没有节点时和为0
-        pre = 0 #从根节点到当前节点位置该路径的前缀和
-        ans = 0
-        def preOrder(root):
-            nonlocal pre,prefix_sum,targetSum,ans
-            if not root:
-                return
-            pre += root.val
-            ans += prefix_sum[pre-targetSum]
-            prefix_sum[pre] += 1
+    def function(self, numerator: int, denominator: int) -> str:
+        if numerator * denominator < 0:  # 判断正负
+            a = '-'
+            numerator = abs(numerator)
+            denominator = abs(denominator)
+        else:
+            a = ''
 
-            preOrder(root.left)
-            preOrder(root.right)
+        a += str(numerator // denominator)  # 将整数部分放到a中
+        numerator = numerator % denominator * 10
 
-            prefix_sum[pre] -= 1
-            pre -= root.val
-        
-        preOrder(root)
-        return ans
-       
+        if numerator == 0:  # 判断是否为整数，整数就直接返回
+            return a
+
+        appeared = {numerator:0}  # 模拟小学除法，appeared为记录出现过的被除数
+        resultstr = ''  # resultstr记录小数部分
+        i = 0
+        while numerator != 0:  # 循环除
+            resultstr = resultstr + str(numerator // denominator)
+            numerator = numerator % denominator * 10
+            i += 1
+            if numerator in appeared:  # 如果被除数出现过，证明从它上一次出现的位置产生了循环小数，跳出while循环
+                break
+            else:
+                appeared[numerator] = i
+        else:
+            return a + '.' + resultstr
+
+        place = appeared[numerator]  # index找到位置，并在两边加上括号即可
+        return a + '.' + resultstr[:place] + '(' + resultstr[place:] + ')'
+
+                
             
 # root1 = buildTree([1])
 # root2 = buildTree([2])
 # head = buildList([1,2,3,4,5])
 
 S = Solution()
-something = S.function(root = buildTree([10,5,-3,3,2,null,11,3,-2,null,1]), targetSum = 8)
+something = S.function(4, 333)
 print(something)
